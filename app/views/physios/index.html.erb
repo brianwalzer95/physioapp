@@ -1,0 +1,53 @@
+
+<header>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+				
+				<div class="intro-text">
+				<p id="notice"><%= notice %></p>
+
+				<h1>Listing Physios</h1>
+
+				<table>
+				  <thead>
+					<tr>
+					  <th>Name</th>
+					  <th>Age</th>
+					  <th>Profile picture</th>
+					  <th>Registered</th>
+					  <th>Email</th>
+					  <th>Phone number</th>
+					  <th>Service</th>
+					  <th>Password digest</th>
+					  <th colspan="3"></th>
+					</tr>
+				  </thead>
+
+				  <tbody>
+					<% @physios.each do |physio| %>
+					  <tr>
+						<td><%= physio.name %></td>
+						<td><%= physio.age %></td>
+						<td><%= image_tag(physio.profile_picture,:size=>"80x50")%></td>
+						<td><%= physio.registered %></td>
+						<td><%= physio.email %></td>
+						<td><%= physio.phone_number %></td>
+						<td><%= physio.service_id %></td>
+						<td><%= physio.password_digest %></td>
+						<td><%= link_to 'Show', physio %></td>
+						<td><%= link_to 'Edit', edit_physio_path(physio) %></td>
+						<td><%= link_to 'Destroy', physio, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+					  </tr>
+					<% end %>
+				  </tbody>
+				</table>
+
+				<br>
+
+				<%= link_to 'New Physio', new_physio_path %>
+				</div>
+			</div>
+		</div>
+	</div>
+</header>

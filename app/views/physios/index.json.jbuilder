@@ -1,0 +1,1 @@
+json.array! @physios, partial: 'physios/physio', as: :physio

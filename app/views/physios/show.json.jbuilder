@@ -1,0 +1,1 @@
+json.partial! "physios/physio", physio: @physio

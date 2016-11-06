@@ -1,0 +1,76 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @physio.name %>
+</p>
+
+<p>
+  <strong>Dob:</strong>
+  <%= @physio.dob %>
+    <strong>Age:</strong>
+    <%= @physio.age %>
+</p>
+
+<p>
+  <strong>Profile picture:</strong>
+  <%= @physio.profile_picture %>
+</p>
+
+<p>
+  <strong>Registered:</strong>
+  <%= @physio.registered %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @physio.email %>
+</p>
+
+<p>
+  <strong>Phone number:</strong>
+  <%= @physio.phone_number %>
+</p>
+
+<p>
+  <strong>Service:</strong>
+  <%= @physio.service.service_name %>
+</p>
+
+<p>
+  <strong>Password digest:</strong>
+  <%= @physio.password_digest %>
+</p>
+
+<h2> Star Rating and comment:</h2>
+	<%=form_for([@physio, Comment.new]) do |f| %>
+	
+	<h3><%= f.label :stars %>
+		<% stars = [1,2,3,4,5] %>
+		<% stars.each do |star| %>
+			<%= f.radio_button :stars, star %> <%=star %>
+		<% end %>
+	</h3></br>
+	<%= f.text_area :content, :rows => 4, :cols=> 40 %>
+	<div class = "actions">
+		<%= f.submit "Post a comment"%>
+	</div>
+<% end %>
+
+<%if @physio.comments.empty? %>
+	<h3> You are the first to comment </h3>
+<%else%>
+		<h2> What others felt about this </h2>
+		<%@physio.comments.reverse.each do |comment| %>
+				<p><%=comment.content%>
+				Posted <%=time_ago_in_words(comment.created_at) %> ago by
+				<%=comment.user.name%> </p>
+			<%end%>
+			<h3> Star Rating </h3>
+			<p>
+					<%=number_with_precision(@physio.average_stars, precision: 0)%>
+			</p>
+<%end%>
+
+<%= link_to 'Edit', edit_physio_path(@physio) %> |
+<%= link_to 'Back', physios_path %>
