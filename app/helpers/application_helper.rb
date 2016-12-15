@@ -7,11 +7,15 @@ module ApplicationHelper
 		end
 	end
 	
-	def secondsigned_in?
-		if session[:second_id].nil?
+	def physiosigned_in?
+		if session[:physio_id].nil?
 			return
 		else
-			@secondcurrent_user = Second.find_by_id(session[:second_id])
+			@current_physio = Physio.find_by_id(session[:physio_id])
 		end
+	end
+	
+	def euro(amount)
+		number_to_currency(amount, :unit => '€')
 	end
 end

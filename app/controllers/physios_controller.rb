@@ -1,6 +1,6 @@
 class PhysiosController < ApplicationController
   before_action :set_physio, only: [:show, :edit, :update, :destroy]
-  before_action :authorise, :only => [:new, :create, :edit, :update, :delete]
+  before_action :physioauthorise, :only => [:create, :edit, :update, :delete]
 
   # GET /physios
   # GET /physios.json
@@ -61,6 +61,18 @@ class PhysiosController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  def search
+	@physios = Physio.search params[:query]
+	unless @physios.empty?
+		flash[:notice] = ''
+		render 'index'
+	else
+		flash[:notice] = 'No records match that search'
+		@physios = Physio.all
+		render 'index'
+	end
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -70,6 +82,6 @@ class PhysiosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def physio_params
-      params.require(:physio).permit(:name, :dob, :profile_picture, :registered, :email, :phone_number, :service_id, :password, :password_confirmation)
+      params.require(:physio).permit(:name, :dob, :profile_picture, :registered, :email, :phone_number, :service_id, :password, :password_confirmation, :cv)
     end
 end

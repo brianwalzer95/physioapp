@@ -3,9 +3,11 @@
 one:
   content: MyText
   user_id: 1
+  physio_id: 1
   stars: 1
 
 two:
   content: MyText
   user_id: 1
+  physio_id: 1
   stars: 1

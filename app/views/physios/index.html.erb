@@ -1,4 +1,8 @@
-
+<style>
+table, th, td {
+    border: 1px solid black;
+}
+</style>
 <header>
 	<div class="container">
 		<div class="row">
@@ -8,7 +12,7 @@
 				<p id="notice"><%= notice %></p>
 
 				<h1>Listing Physios</h1>
-
+				
 				<table>
 				  <thead>
 					<tr>
@@ -20,6 +24,7 @@
 					  <th>Phone number</th>
 					  <th>Service</th>
 					  <th>Password digest</th>
+					  <th>Upload CV</th>
 					  <th colspan="3"></th>
 					</tr>
 				  </thead>
@@ -33,8 +38,9 @@
 						<td><%= physio.registered %></td>
 						<td><%= physio.email %></td>
 						<td><%= physio.phone_number %></td>
-						<td><%= physio.service_id %></td>
+						<td><%= physio.service.service_name %></td>
 						<td><%= physio.password_digest %></td>
+						<td><%= link_to "Download File", physio.cv_url %></td>
 						<td><%= link_to 'Show', physio %></td>
 						<td><%= link_to 'Edit', edit_physio_path(physio) %></td>
 						<td><%= link_to 'Destroy', physio, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -50,4 +56,10 @@
 			</div>
 		</div>
 	</div>
+	<% if !physiosigned_in? %>
+		<li class="active"><%= link_to "Sign In", physiologin_path %></li>
+	<% else %>
+		<li class="active">Signed in as <%= @current_physio.name %></li>
+		<li class="active"><%= link_to "Sign Out", physiologout_path %>
+	<% end %>
 </header>

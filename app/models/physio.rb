@@ -1,6 +1,9 @@
 class Physio < ActiveRecord::Base
 	has_secure_password 
+	belongs_to :service
 	has_many :comments, :dependent => :destroy
+	
+	mount_uploader :cv, CvUploader
 	
 	validates :name, presence: true
 	validates :registered, presence: true
@@ -14,5 +17,9 @@ class Physio < ActiveRecord::Base
 	def age
 		d = Date.new(Date.today.year, dob.month, dob.day)
 		d.year - dob.year - (d > Date.today ? 1 : 0)
+	end
+	
+	def self.search(query)
+		where("name LIKE ?", "%#{query}%")
 	end
 end

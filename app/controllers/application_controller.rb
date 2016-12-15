@@ -12,17 +12,24 @@ class ApplicationController < ActionController::Base
 		end
 	end
 	
-	private 
-		def store_location	
-			session[:return_to] = request.fullpath
-		end
-
-
-	def secondauthorise
+	def physioauthorise
 		unless physiosigned_in?
 			store_location
 			redirect_to physiologin_path, notice: "You must be logged in as a second to complete this action"
 		end
 	end
+	
+	private 
+	def store_location	
+		session[:return_to] = request.fullpath
+	end
+
+	def current_cart
+		@cart = Cart.find(session[:cart_id])
+		rescue ActiveRecord::RecordNotFound
+			@cart = Cart.create
+			session[:cart_id] = @cart.id
+		end
+	
 
 end

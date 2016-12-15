@@ -1,0 +1,11 @@
+<h1>Services for sale</h1>
+<% if !@services.empty? %>
+	<% @services.each do |service| %>
+		<h3> <%=service.service_name %> </h3>
+		<%= euro(service.price)%>
+		<%=button_to 'Add to Cart', lineitems_path(service_id: service) %>
+	<%end%>
+<%else%>
+	<p> There are no services for sale </p>
+<%end%>
+

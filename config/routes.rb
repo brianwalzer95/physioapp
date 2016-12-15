@@ -1,32 +1,46 @@
 Rails.application.routes.draw do
-  
-  resources :movies do
-	resources :comments
+     
+  get 'shop/index'
+
+  resources :services
+  resources :comments
+  resources :physios do
+  resources :comments
   end
   
-  resources :physios
+  
   controller :sessions do
 	get 'login' => :new
 	post 'login' => :create
 	get 'logout' => :destroy
 	delete 'logout' => :destroy
-	get 'physiologin' => :secondnew
-	post 'physiologin' => :secondcreate
-	get 'physiologout' => :seconddestroy
-	delete 'physiologout' => :seconddestroy
+	get 'physiologin' => :physionew
+	post 'physiologin' => :physiocreate
+	get 'physiologout' => :physiodestroy
+	delete 'physiologout' => :physiodestroy
   end
 
-
+  resources :orders
   resources :users
   get 'pages/home'
 
   get 'pages/about'
+  
+	resources :lineitems
+	
+	resources :carts do
+		resources :lineitems
+	end
 
-  resources :appointments
   
   get 'pages/home'
   
-  resources :services
+  
+  
+  get 'discount', :to => 'services#discount'
+  get 'apply_discount', :to => 'services#apply_discount'
+  get 'search', :to=>'physios#search'
+  get 'search', :to=>'services#search'
   
   
   
@@ -34,7 +48,7 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'pages#home'
+  root 'shop#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
@@ -65,8 +79,7 @@ Rails.application.routes.draw do
 
   # Example resource route with more complex sub-resources:
   #   resources :products do
-  #     resources :comments
-  #     resources :sales do
+  #     #     resources :sales do
   #       get 'recent', on: :collection
   #     end
   #   end

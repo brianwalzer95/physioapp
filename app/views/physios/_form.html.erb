@@ -1,53 +1,68 @@
-<%= form_for(@physio) do |f| %>
-  <% if @physio.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@physio.errors.count, "error") %> prohibited this physio from being saved:</h2>
+<header>
+	<font color="black">
+    <div class="container">
+		<div class="row">
+			<div class="col-lg-12">
 
-      <ul>
-      <% @physio.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+				<%= form_for(@physio) do |f| %>
+				  <% if @physio.errors.any? %>
+					<div id="error_explanation">
+					  <h2><%= pluralize(@physio.errors.count, "error") %> prohibited this physio from being saved:</h2>
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :dob %><br>
-    <%= f.date_field :dob %>
-  </div>
-  <div class="field">
-    <%= f.label :profile_picture %><br>
-    <%= f.text_field :profile_picture %>
-  </div>
-  <div class="field">
-    <%= f.label :registered %><br>
-    <%= f.check_box :registered %>
-  </div>
-  <div class="field">
-    <%= f.label :email %><br>
-    <%= f.text_field :email %>
-  </div>
-  <div class="field">
-    <%= f.label :phone_number %><br>
-    <%= f.number_field :phone_number %>
-  </div>
-  <div class="field">
-    <%= f.label :service_id %><br>
-    <%= f.collection_select :service_id, Service.all, :id, :service_name %>
-  </div>
-  <div class="field">
-    <%= f.label :password %><br>
-    <%= f.text_field :password %>
-  </div>
-  <div class="field">
- <%= f.label :password_confirmation %><br />
- <%= f.password_field :password_confirmation %>
- </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+					  <ul>
+					  <% @physio.errors.full_messages.each do |message| %>
+						<li><%= message %></li>
+					  <% end %>
+					  </ul>
+					</div>
+				  <% end %>
+
+				  <div class="field">
+					<%= f.label :name %><br>
+					<%= f.text_field :name %>
+				  </div>
+				  <div class="field">
+					<%= f.label :dob %><br>
+					<%= f.date_field :dob %>
+				  </div>
+				  <div class="field">
+					<%= f.label :profile_picture %><br>
+					<%= f.text_field :profile_picture %>
+				  </div>
+				  <div class="field">
+					<%= f.label :registered %><br>
+					<%= f.check_box :registered %>
+				  </div>
+				  <div class="field">
+					<%= f.label :email %><br>
+					<%= f.text_field :email %>
+				  </div>
+				  <div class="field">
+					<%= f.label :phone_number %><br>
+					<%= f.number_field :phone_number %>
+				  </div>
+				  <div class="field">
+					<%= f.label :service_id %><br>
+					<%= f.collection_select :service_id, Service.all, :id, :service_name %>
+				  </div>
+				  <div class="field">
+					<%= f.label :attachment %><br>
+					<=f.file_field :attachment %>
+				  </div>
+				  <div class="field">
+					<%= f.label :password %><br>
+					<%= f.password_field :password %>
+				  </div>
+				  <div class="field">
+				 <%= f.label :password_confirmation %><br />
+				 <%= f.password_field :password_confirmation %>
+				 </div>
+				  <div class="actions">
+					<%= f.submit %>
+				  </div>
+				<% end %>
+			</div>
+		</div>
+	</div>
+	</font>
+</header>

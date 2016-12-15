@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
 	user = User.find_by_email(params[:email])
 	if user && user.authenticate(params[:password])
 		session[:user_id] = user.id #stores the id in the session
-		redirect_to user #displays the user/show view
+		redirect_to session[:return_to] || root_path #displays the user/show view
 	else
 		flash.now[:error] = "Invalid email/password combination."
 		render 'new' #shows the login page again
@@ -23,21 +23,21 @@ class SessionsController < ApplicationController
   end
   
   
-   def secondnew
+   def physionew
    
    end
    
-   def secondcreate
-		physio = Physio.find_by_email( params[:email])
-		if physio and physio.authenticate(params[:password])
+   def physiocreate
+		physio = Physio.find_by_email(params[:email])
+		if physio && physio.authenticate(params[:password])
 			session[:physio_id] = physio.id
 			redirect_to session[:return_to] || root_path
 		else
-			redirect_to secondlogin_path, alert: "Invalid user/password combination"
+			redirect_to physiologin_path, alert: "Invalid user/password combination"
 		end
    end
    
-   def seconddestroy
+   def physiodestroy
 		session[:physio_id] = nil
 		redirect_to root_path, notice: "Logged out"
    end

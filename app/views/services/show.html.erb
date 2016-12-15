@@ -1,19 +1,29 @@
-<p id="notice"><%= notice %></p>
+<header>
+    <div class="container">
+		<div class="row">
+			<div class="col-lg-12">	
+				<p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Service name:</strong>
-  <%= @service.service_name %>
-</p>
- <%@service.physios.each do |physio|%>
-		<br>
-		<%=physio.service_name %>
-	<% end %>
-</p>
+					<p>
+					  <strong>Service name:</strong>
+					  <%= @service.service_name %>
+					</p>
+					<p>
+					 <%@service.physios.each do |physio|%>
+							<br>
+							<%=physio.service.service_name %>
+							
+						<% end %>
+					</p>
 
-<p>
-  <strong>Price:</strong>
-  <%= @service.price %>
-</p>
+					<p>
+					  <strong>Price:</strong>
+					  <%= @service.price %>
+					</p>
 
-<%= link_to 'Edit', edit_service_path(@service) %> |
-<%= link_to 'Back', services_path %>
+					<%= link_to 'Edit', edit_service_path(@service) %> |
+					<%= link_to 'Back', services_path %>
+			</div>
+		</div>
+	</div>
+</header>

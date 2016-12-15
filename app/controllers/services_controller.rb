@@ -1,6 +1,6 @@
 class ServicesController < ApplicationController
   before_action :set_service, only: [:show, :edit, :update, :destroy]
-
+  before_action :physioauthorise, :only => [:new, :create, :edit, :update, :delete]
   # GET /services
   # GET /services.json
   def index
@@ -36,6 +36,18 @@ class ServicesController < ApplicationController
       end
     end
   end
+  
+  def search
+	@services = Service.search params[:query]
+	unless @services.empty?
+		flash[:notice] = ''
+		render 'index'
+	else
+		flash[:notice] = 'No records match that search'
+		@services = Service.all
+		render 'index'
+	end
+  end
 
   # PATCH/PUT /services/1
   # PATCH/PUT /services/1.json
@@ -60,6 +72,22 @@ class ServicesController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  def discount
+  
+  end
+
+  def apply_discount
+	discount = params[:discount].to_f #to_f converts a text field to a float
+	@services = Service.all
+	@services.each do |s|
+		s.apply_discount(s, discount)
+		s.save
+	end
+	render 'index', notice: "Discount of 10% has been applied"
+  end
+
+  
 
   private
     # Use callbacks to share common setup or constraints between actions.

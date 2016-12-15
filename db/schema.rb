@@ -11,22 +11,35 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161106151744) do
+ActiveRecord::Schema.define(version: 20161214215345) do
 
-  create_table "appointments", force: :cascade do |t|
-    t.string   "location"
-    t.date     "appoint_date"
-    t.integer  "previous_appointment"
-    t.integer  "physio_id"
-    t.integer  "user_id"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+  create_table "carts", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "comments", force: :cascade do |t|
     t.text     "content"
     t.integer  "user_id"
+    t.integer  "physio_id"
     t.integer  "stars"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "lineitems", force: :cascade do |t|
+    t.integer  "service_id"
+    t.integer  "order_id"
+    t.integer  "quantity"
+    t.integer  "cart_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "paymethod"
+    t.decimal  "total"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -42,6 +55,7 @@ ActiveRecord::Schema.define(version: 20161106151744) do
     t.string   "password_digest"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.string   "cv"
   end
 
   create_table "services", force: :cascade do |t|
